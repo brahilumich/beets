@@ -382,15 +382,7 @@ def _fsencoding() -> str:
     """Get the system's filesystem encoding. On Windows, this is always
     UTF-8 (not MBCS).
     """
-    encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()
-    if encoding == "mbcs":
-        # On Windows, a broken encoding known to Python as "MBCS" is
-        # used for the filesystem. However, we only use the Unicode API
-        # for Windows paths, so the encoding is actually immaterial so
-        # we can avoid dealing with this nastiness. We arbitrarily
-        # choose UTF-8.
-        encoding = "utf-8"
-    return encoding
+    return sys.getfilesystemencoding() or sys.getdefaultencoding()
 
 
 def bytestring_path(path: PathLike) -> bytes:
